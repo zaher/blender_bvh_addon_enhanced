@@ -118,7 +118,7 @@ def sorted_nodes(bvh_nodes):
 def read_bvh(context, file_path, rotate_mode='XYZ', global_scale=1.0):
     # File loading stuff
     # Open the file for importing
-    file = open(file_path, 'rU')
+    file = open(file_path, 'r')
 
     # Separate into a list of lists, each line a list of words.
     file_lines = file.readlines()
@@ -414,7 +414,7 @@ def bvh_node_dict2objects(
             # Make relative to parents offset
             bvh_node.temp.location = global_matrix_3x3 @ bvh_node.rest_head_local
 
-       # Add tail objects
+        # Add tail objects
         for name, bvh_node in bvh_nodes.items():
             if not bvh_node.children:
                 ob_end = add_ob(name + '_end')
@@ -640,7 +640,7 @@ def bvh_node_dict2armature(
         bone_rest_matrix_inv.resize_4x4()
         bone_rest_matrix.resize_4x4()
         bvh_node.temp = (pose_bone, rest_bone, bone_rest_matrix,
-                         bone_rest_matrix_inv)
+                        bone_rest_matrix_inv)
 
         if 0 == num_frame:
             num_frame = len(bvh_node.anim_data)
@@ -691,7 +691,7 @@ def bvh_node_dict2armature(
                 # print('---> bone_translate_matrix: ', bone_translate_matrix)
                 # print('---> bone_rest_matrix_inv: ', bone_rest_matrix_inv)
                 location[frame_i] = (bone_rest_matrix_inv @
-                                     bone_translate_matrix).to_translation()
+                                    bone_translate_matrix).to_translation()
                 # print('---> location[frame_i]: ', location[frame_i])
 
             # For each location x, y, z.
@@ -713,11 +713,11 @@ def bvh_node_dict2armature(
             if 'QUATERNION' == rotate_mode:
                 rotate = [(1.0, 0.0, 0.0, 0.0)] * num_frame
                 data_path = ('pose.bones["%s"].rotation_quaternion'
-                             % pose_bone.name)
+                            % pose_bone.name)
             else:
                 rotate = [(0.0, 0.0, 0.0)] * num_frame
                 data_path = ('pose.bones["%s"].rotation_euler' %
-                             pose_bone.name)
+                            pose_bone.name)
 
             prev_euler = Euler((0.0, 0.0, 0.0))
             for frame_i in range(num_frame):
@@ -881,7 +881,7 @@ def bvh_node_dict2existing_armature(
         bone_rest_matrix_inv.resize_4x4()
         bone_rest_matrix.resize_4x4()
         bvh_node.temp = (pose_bone, rest_bone,
-                         bone_rest_matrix, bone_rest_matrix_inv)
+                        bone_rest_matrix, bone_rest_matrix_inv)
 
         if 0 == num_frame:
             num_frame = len(bvh_node.anim_data)
@@ -938,7 +938,7 @@ def bvh_node_dict2existing_armature(
 
                 # print('---> bone_rest_matrix_inv:  \n', bone_rest_matrix_inv)
                 location[frame_i] = (bone_rest_matrix_inv @
-                                     bone_translate_matrix).to_translation()
+                                    bone_translate_matrix).to_translation()
                 # print('---> location[frame_i]:  \n', location[frame_i])
 
             # For each location x, y, z.
@@ -960,11 +960,11 @@ def bvh_node_dict2existing_armature(
             if 'QUATERNION' == rotate_mode:
                 rotate = [(1.0, 0.0, 0.0, 0.0)] * num_frame
                 data_path = ('pose.bones["%s"].rotation_quaternion'
-                             % pose_bone.name)
+                            % pose_bone.name)
             else:
                 rotate = [(0.0, 0.0, 0.0)] * num_frame
                 data_path = ('pose.bones["%s"].rotation_euler' %
-                             pose_bone.name)
+                            pose_bone.name)
 
             prev_euler = Euler((0.0, 0.0, 0.0))
 
@@ -1178,7 +1178,7 @@ def _update_scene_fps(context, report, bvh_frame_time):
 
     if scene.render.fps != new_fps or scene.render.fps_base != 1.0:
         print("\tupdating scene FPS (was %f) to BVH FPS (%f)" %
-              (scene_fps, new_fps))
+                (scene_fps, new_fps))
     scene.render.fps = new_fps
     scene.render.fps_base = 1.0
 
